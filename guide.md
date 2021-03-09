@@ -108,8 +108,64 @@ greeting()
 stack/brackets.js
 
 3-4 js 函数调用堆栈
+stack/callStack.js
 
+3-5 stack summary
+1. stack 后进先出 数据结构
+1. js 没有栈，但是可以用 Array 实现栈的所有功能
+1. 栈常用操作 栈顶/尾元素 push/pop/ stack[stack.length - 1]
 
-## 队列 queue
-1. 先进先出
+4-1 队列 queue
+1. 先进先出 数据结构
+1. 操作 enqueue 入队，dequeue 出队
 1. Js 没有队列，可以用Array 实现队列的功能
+queue/queue.js
+
+4-2 队列应用场景
+1. 需要 先进先出 的场景
+1. 食堂排队打饭/先进先出，保证有序、js 异步任务队列、计算最近的请求次数
+
+EventLoop
+
+js 引入 Callback Queue ，因为 js 是单线程，无法同时处理异步中的并发任务
+使用任务队列先后处理异步任务
+
+js -> WebApi -> Callback Queue
+
+输入一个数组，代表每个请求发起的时刻，在 1、100、3001、3002ms 4个时刻发其4个请求
+inputes [[], [1], [100], [3001], [3002]]
+输出每个请求下最近的请求次数，最近指以当前时刻 3000ms 内的请求次数
+out [null, 1, 2, 3, 3]
+
+1. 最先发起的时刻，最先跑出
+1. 新请求就入队，3000ms前发出请求出队
+1. 队列的长度就是最近请求次数
+
+4-3 leetcode 933 最近请求次数
+1. 类，实例化类
+1. 按照数组顺序一次调用 ping 方法，每次调用ping 传入的参数就是 这几个数字
+1. 每次调用完 ping 方法返回的数字会放入到输出的数组里
+
+思路：
+1. 新建队列， 新请求就入队，3000ms 前发出的请求出队
+1. 队列的长度就是最近请求次数
+
+4-4 js 异步中的任务队列
+setTimeout(() => console.log(1), 0)
+console.log(2)
+
+打印结果？
+先2 后1
+
+js 引擎（heap/stack）
+callback queue
+webapi （DOM（click）/ajax/setTimeout）
+
+一段js 代码最初执行的时候，会有主事件、匿名的主事件，放入到 callback queue 里面
+js 引擎会去 callback queue 里面获取一个事件执行，因为js 是单线程，每次只能处理一个事件
+在执行这个事件中如果内部存在异步任务，如 dom/ajax/setTimeout 会递交给 webAPIs 执行 ，递交后不在管理，WebAPIs 在执行完后，会把回调中的js代码再次放入到 callback queue 里面，然后callback queue 任务队列前面的事件都执行完后了，那么新放进的回调函数的代码放入到js引擎里面执行。如果回调里面还有异步任务，继续放入 WebAPIs 一次循环
+
+4-5 queue summary
+1. 先进先出 数据结构
+1. js 没有队列，可以用 Array 实现队列的所有功能
+1. 队列常用操作 push shift queue[0]
