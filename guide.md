@@ -163,7 +163,7 @@ webapi （DOM（click）/ajax/setTimeout）
 
 一段js 代码最初执行的时候，会有主事件、匿名的主事件，放入到 callback queue 里面
 js 引擎会去 callback queue 里面获取一个事件执行，因为js 是单线程，每次只能处理一个事件
-在执行这个事件中如果内部存在异步任务，如 dom/ajax/setTimeout 会递交给 webAPIs 执行 ，递交后不在管理，WebAPIs 在执行完后，会把回调中的js代码再次放入到 callback queue 里面，然后callback queue 任务队列前面的事件都执行完后了，那么新放进的回调函数的代码放入到js引擎里面执行。如果回调里面还有异步任务，继续放入 WebAPIs 一次循环
+在执行这个事件中如果内部存在异步任务，如 dom/ajax/setTimeout 会递交给 webAPIs 执行 ，递交后不在管理，WebAPIs 在执行完后，会把回调中的js代码再次放入到 callback queue 里面，然后c allback queue 任务队列前面的事件都执行完后了，那么新放进的回调函数的代码放入到js引擎里面执行。如果回调里面还有异步任务，继续放入 WebAPIs 一次循环
 
 4-5 queue summary
 1. 先进先出 数据结构
