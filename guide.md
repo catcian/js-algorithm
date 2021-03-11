@@ -228,4 +228,68 @@ js 中的链表
 1. 遍历追加两个链表，模拟相加操作，将个位数追加到新链表上，将十位数留到下一位去相加
 
 
+5-5 83 删除排序链表中重复的元素
+1 - 1 - 2
+1 - 2
+linkedList/deleteDuplicates.js
 
+思路
+1 链表是有序的，所有重复元素一定相邻
+1. 遍历链表，如果发现当前元素和下一个元素相同，就删除下个元素
+
+解题步骤
+1. 遍历链表，如果发现当前元素和下个元素值相同，就删除下个元素值
+1. 遍历结束，返回原链表的头部
+
+
+5-6 环形链表 141
+1 - 2 - 0 -4 -》2
+思路
+1. 两人在圆形操场上起点同时起跑，速度快的人一定超多速度慢的一圈
+1. 用一快一慢两个指针遍历链表，如果指针能够相逢，那么链表就存在有圈
+
+步骤
+1. 用一快一慢两个指针遍历链表，如果指针能够相逢，就返回true 
+1. 遍历结束后，还没又相逢就返回 false
+linkedList/hasCycle.js
+
+5-7 js 中的原型链
+1. 原型链 本质是链表
+1. 原型链上的节点是各种原型对象。比如 Function.prototype\Object.prototype
+1. 原型链通过 proto 属性链接各种原型对象
+
+原型链长啥样？
+obj => Object.prototype => null
+func => Function.prototype => Object.prototype => null
+arr => Array.prototype => Object.prototype => null
+
+linkedList/proto.js
+
+原型链知识点
+1. 如果A 沿着原型链能找到 B.prototype 对象，那么 A instanceof B 为 true
+1. 如何在 A 对象上没有找到 x 属性，那么会沿着原型链找 x 属性
+
+面试题
+1. instanceof 原理，并用代码实现
+知识点，1
+遍历A 的原型链，如果找到 B.prototype,返回true 否则返回 false
+
+2. var foo = {}, F = function() {}
+Object.prototype.a = 'value a'
+Function.prototype.b = 'value b'
+foo.a // value a
+foo.b // undefined
+F.a // value a
+F.b // value b
+知识点 2 
+解法 明确foo 和 F 遍历的原型链，沿着原型链找 a 属性 b 属性
+
+5-8 前端与链表，使用链表指针获取JSON的节点值
+linkedLinst/json.js
+
+5-9 summary
+1. 链表里的元素不是连续的，通过 next 链接
+1. js 没有链表，可以用 object 模拟
+1. 链表常用操作 修改next 遍历链表
+1. js 原型链 也是链表
+1. 使用链表指针获取JSon 的节点值
