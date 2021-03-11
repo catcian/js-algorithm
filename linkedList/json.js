@@ -10,5 +10,3 @@ let p = json
 path.forEach(key => {
   p = p[key]
 })
-console.log(1)
-console.log(p)
