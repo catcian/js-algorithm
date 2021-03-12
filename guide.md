@@ -300,3 +300,36 @@ linkedLinst/json.js
 1. 操作：去重，判断某元素是否在集合中，求交集
 
 set/index.js
+
+6-2 两个数组的交集 349
+思路
+num1 [1,2,2,1] num2 = [2,2]
+[2]
+
+1. 求交集其无序唯一
+1. 使用集合
+
+解题步骤
+1. 用集合 对 num1 去重
+1. 遍历 num1 筛选出 num2也包含的值
+set/intersection.js
+
+时间复杂度 看循环 filterO(n) includesO(n) => O(n^2)  O(m * n)
+空间复杂度 new Set存储m O(m)
+
+6-3 前端与集合 使用 ES6 的Set
+1. 使用 Set 对象：new add delete has size
+1. 迭代 Set 多种迭代方法、Set 与 Array 互转、求交集/差集
+set/set.js
+
+6-4 集合总结
+1. 无序 且唯一的数据结构
+1. ES6 有集合 Set
+1. 操作 去重，判断某元素是否存在，求交集
+
+7-1 字典
+1. 集合类似，字典也是存储唯一值的数据结构，但是它是以键值对简直对的形式来存储
+1. ES6 中有字典 Map/映射
+1. 操作：键值对的增删改查
+map/index.js
+
