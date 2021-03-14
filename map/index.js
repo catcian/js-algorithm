@@ -11,3 +11,4 @@ m.clear()
 // 改
 m.set('a', 'aaa')
 
+m.has('a')
