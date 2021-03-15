@@ -19,6 +19,32 @@ const lengthOfLongestSubstring = function (s) {
   return res
 }
 
-const s = "abcabcbb" //3
-const s2 = "abcabcba"
-const res = lengthOfLongestSubstring(s)
+// const s = "abcabcbb" //3
+// const s2 = "abcabcba"
+// const res = lengthOfLongestSubstring(s)
+
+/* 
+求一个字符串最长的没有相同字符的连续子串
+s = 'abcdchjklpo'
+dchkjlpo
+ */
+
+const longestSubstring = function (s) {
+  let l = 0
+  let res = ''
+  const map = new Map()
+  for(let r = 0; r < s.length; r++){
+    if(map.has(s[r]) && map.get(s[r]) >= l) {
+      l = map.get(s[r]) + 1
+    }
+    map.set(s[r], r)
+    const newRes = s.substring(l, r+1)
+    if (res.length < newRes.length) res = newRes
+  }
+  return res
+}
+const s = 'abcdchjklpo'
+// const s2 = 'aabcderrgfffopjkilhgg'
+const s2 = 'aabcderrgfff'
+const res = longestSubstring(s2) // abcder
+
