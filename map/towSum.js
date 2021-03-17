@@ -7,7 +7,7 @@
 const towSum = function (nums, target) {
 
   const map = new Map()
-  for( let i=0; i<nums.length; i++){
+  for(let i=0; i<nums.length; i++){
     const n = nums[i]
     const n2 = target - n
     if (map.has(n2)) {

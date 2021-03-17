@@ -341,6 +341,23 @@ map/index.js
 1. 用字典建立一个映射关系，记录 nums1 里有的值
 1. 遍历 nums2 ，找好 nums1 里也有的值
 
+```
+function intersection (nums1, nums2) {
+  const map = new Map()
+  let res = []
+  for (let i=0; i<nums1.length; i++) {
+    map.set(nums1[i], i)
+  }
+  for (let j=0; j<nums2.length; j++) {
+    if (map.has(nums2[j])) {
+      res.push(nums2[j])
+      map.delete(nums2[j])
+    }
+  }
+  return res
+}
+```
+
 步骤
 1. 新键一个字典，遍历 muns1 填充字典
 1. 遍历 nums2 ，遇到字典里的值就选出，并从字典中删除
@@ -354,10 +371,25 @@ map/isValid.js
 
 7-4 两数之和 1
 
-nums 【2，7，11，15】 target 9
+nums:[2, 7, 11, 15] target:9
 nums[0] + nums[1] = 9
-
 返回 [0,1]
+
+```
+function twoSum (nums, target) {
+  const map = new Map()
+  for (let i=0; i<nums.length; i++){
+    const cur = nums[i]
+    const match = target - nums[i]
+    // 匹配元素存在
+    if (map.has(match)){
+      return [map.get(match), i]
+    } else {
+      map.set(cur, i)
+    }
+  }
+}
+```
 
 1. nums 想象成相亲着
 1. 把 targer 想象成匹配条件
@@ -492,4 +524,37 @@ tree/inorder.js
 tree/postorder.js
 
 8-4 二叉树 的先中后序遍历（非递归）堆栈模拟递归的过程
-tree/
+tree/preorder.js 
+函数里面调用另外一个函数，往栈内推入一个函数，如果函数执行完，栈顶元素释放掉
+堆栈模拟递归的过程：
+1. 新建一个栈 根节点
+1. 访问栈顶元素 
+1. 根节点 right 存在 入栈
+1. 根节点 left 存在 入栈
+1. 在 stack 有值的情况下循环
+
+tree/inorder.js 中序遍历
+1. 所有的左子树，丢进栈内
+```
+const inorder = root => {
+  const stack = []
+  let p = root
+  while (p) {
+    stack.push(p)
+    p = p.left
+  }
+}
+```
+1. 弹出最尽头的左节点，并访问
+
+1. 访问最近头的左节点的右节点，
+
+1. 循环
+
+tree/postorder.js 复杂
+1. 后序遍历的顺序倒置：根 右 左
+1. 利用先序遍历的算法逻辑，实现逆序的访问
+1. 利用栈的后进先出 把先序遍历的顺序倒置重新访问
+
+
+
