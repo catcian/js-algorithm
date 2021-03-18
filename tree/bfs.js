@@ -30,7 +30,6 @@ const tree = {
   ]
 }
 
-
 const bfs = (root) => {
   const queue = [root]
 
