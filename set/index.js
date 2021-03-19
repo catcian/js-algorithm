@@ -16,3 +16,6 @@ const set2 = new Set([3,4])
 const s = new Set([...set].filter(i => set2.has(i)))
 
 console.log('s', s)
+
+// 添加一个元素
+set.add(9)
