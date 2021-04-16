@@ -13,20 +13,15 @@ const bt = require('./bt')
 // preorder(bt)
 
 /* 
-1
+         1            
+      /    \
+    2       3         
+  /  \    /  \
+ 4    5  6    7   
 
-2
+1、2、4、5、3、6、7
 
-4
-
-5
-
-3
-
-6
-
-7
- */
+*/
 
 function preorder (root) {
   const stack = [root]

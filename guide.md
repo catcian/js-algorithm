@@ -163,7 +163,7 @@ webapi （DOM（click）/ajax/setTimeout）
 
 一段js 代码最初执行的时候，会有主事件、匿名的主事件，放入到 callback queue 里面
 js 引擎会去 callback queue 里面获取一个事件执行，因为js 是单线程，每次只能处理一个事件
-在执行这个事件中如果内部存在异步任务，如 dom/ajax/setTimeout 会递交给 webAPIs 执行 ，递交后不在管理，WebAPIs 在执行完后，会把回调中的js代码再次放入到 callback queue 里面，然后c allback queue 任务队列前面的事件都执行完后了，那么新放进的回调函数的代码放入到js引擎里面执行。如果回调里面还有异步任务，继续放入 WebAPIs 一次循环
+在执行这个事件中如果内部存在异步任务，如 dom/ajax/setTimeout 会递交给 webAPIs 执行 ，递交后不在管理，WebAPIs 在执行完后，会把回调中的js代码再次放入到 callback queue 里面，然后c allback queue 任务队列前面的事件都执行完后了，那么新放进的回调函数的代码放入到js引擎里面执行。如果回调里面还有异步任务，继续放入 WebAPIs 依次循环
 
 4-5 queue summary
 1. 先进先出 数据结构
@@ -200,6 +200,27 @@ js 中的链表
 步骤：
 1. 将被删除节点的值改为下一个节点值
 1. 删除下一个节点
+```
+function NodeList(val, next) {
+  this.val = val
+  this.next = null
+}
+const head = new NodeList(4)
+const node = new NodeList(5)
+const node2 = new NodeList(1)
+const node3 = new NodeList(9)
+
+head.next = node
+node.next = node2
+node2.next = node3
+
+function delNode(node) {
+  // 将被删除的节点 转移到下一个节点
+  node.val = node.next.val
+  // 删除下一个节点
+  node.next = node.next.next
+}
+```
 
 5-3 leetcode 206 反转链表
 ... > n > n + 1 > ...
@@ -340,18 +361,17 @@ map/index.js
 1. 求 nums1 和 nums2 都有的值
 1. 用字典建立一个映射关系，记录 nums1 里有的值
 1. 遍历 nums2 ，找好 nums1 里也有的值
-
 ```
 function intersection (nums1, nums2) {
   const map = new Map()
   let res = []
-  for (let i=0; i<nums1.length; i++) {
-    map.set(nums1[i], i)
+  for (let index in nums1) {
+    map.set(nums[index], index)
   }
-  for (let j=0; j<nums2.length; j++) {
-    if (map.has(nums2[j])) {
-      res.push(nums2[j])
-      map.delete(nums2[j])
+  for(let index in nums2) {
+    if (map.has(nums2[index])) {
+      res.push(nums2[index])
+      map.delete(nums2[index])
     }
   }
   return res
@@ -368,6 +388,13 @@ map/intersection.js
 
 7-3 有效的括号 20
 map/isValid.js
+```
+function isValid (str) {
+  const map = new Map()
+  map.set('[', ']')
+}
+
+```
 
 7-4 两数之和 1
 
@@ -446,7 +473,7 @@ map/towSum.js
 1. 前端工作种常见的树包括：DOM
 树、级联选择、树形控件
 
-1. js 种没有树，但是可以用 Object 和 Array 构建树
+1. js 中没有树，但是可以用 Object 和 Array 构建树
 {
   value: 'zhejiang',
   label: 'Zhengjiang',
@@ -475,7 +502,7 @@ map/towSum.js
 1. 对根节点的 children 挨个进行深度优先遍历
 tree/dfs.js // 深度优先遍历首字母缩写
 
-广度优先遍历算法口诀
+广度优先遍历算法口诀 /tree/bfs.js
 1. 新键一个队列，把根节点入队
 1. 把 对头 出队并访问
 1. 把 对头 的 children 挨个入队
@@ -498,10 +525,11 @@ function bfs (root) {
 1. 深度优先遍历 就是 递归
 1. 广度优先遍历，需要新键一个队列
 
-8-3 二叉树先中后序遍历 3种遍历
+### 8-3 二叉树先中后序遍历 3种遍历
 二叉树是什么？
 1. 树 中每个节点最多只能有两个子节点
 1. js 通常用 Object 模拟二叉树
+```
 const binaryTree = {
   val: 1,
   left: {
@@ -515,27 +543,23 @@ const binaryTree = {
     right: null
   }
 }
-
-先序遍历算法口诀
+```
+先序遍历算法口诀 /tree/preorder.js 
 1. 访问 根 节点
 1. 对 根节点 的 左 子树 进行先序遍历
 1. 对 根节点 的 右 子树 进行先序遍历
-tree/bt.js
-tree/preorder.js
 
-中序遍历算法口诀
+中序遍历算法口诀 /tree/inorder.js
 1. 对 根节点 的 左 子树 进行中序遍历
 1. 访问 根 节点
 1. 对 根节点 的 右 子树 进行中序遍历
-tree/inorder.js
 
-后序遍历算法口诀
+后序遍历算法口诀 /tree/postorder.js
 1. 对 根节点 左 子树 进行后序遍历
 1. 对 根节点 右 子树 进行后序遍历
 1. 访问 根 节点
-tree/postorder.js
 
-8-4 二叉树 的先中后序遍历（非递归）堆栈模拟递归的过程
+### 8-4 二叉树 的先中后序遍历（非递归）堆栈模拟递归的过程
 tree/preorder.js 
 函数里面调用另外一个函数，往栈内推入一个函数，如果函数执行完，栈顶元素释放掉
 堆栈模拟递归的过程：
@@ -568,8 +592,7 @@ tree/postorder.js 复杂
 1. 利用先序遍历的算法逻辑，实现逆序的访问
 1. 利用栈的后进先出 把先序遍历的顺序倒置重新访问
 
-8-5 二叉树 最大深度 104
-/tree/maxDepth.js
+### 8-5 二叉树 最大深度 104 /tree/maxDepth.js
 思路：
 1. 求最大深度，考虑使用使用深度优先遍历
 1. 在深度优先遍历过程中，记录每个节点所在的层级，找出最大的层级即可
@@ -582,7 +605,7 @@ tree/postorder.js 复杂
 时间复杂度：每个节点都遍历 循环了 n 次 O(n)
 空间复杂度：函数调用函数，隐形存在的栈，dfs 嵌套的多少层就是二叉树最大深度，最大深度和节点树关系。最坏是等于节点树O(n), O(logn)
 
-8-6 二叉树 最小深度 111
+### 8-6 二叉树 最小深度 111 /tree/minDepth.js
 1. 也是有用深度优先遍历，但是广度优先遍历更适合
 
 思路
@@ -595,9 +618,8 @@ tree/postorder.js 复杂
 
 时间复杂度：遍历每个节点 O(n)
 空间复杂度：O(n) n 树的节点树
-/tree/minDepth.js
 
-8-7 二叉树 层序遍历 102 
+### 8-7 二叉树 层序遍历 102 /tree/levelOrder.js
 思路
 1. 层序遍历顺序就是广度优先遍历。
 1. 不过在遍历时候需要记录当前节点所处的层级,方便将其添加到不同的数组中。
@@ -605,7 +627,6 @@ tree/postorder.js 复杂
 步骤
 1. 广度优先遍历二叉树。
 1. 遍历过程中,记录每个节点的层级,并将其添加到不同的数组中。
-/tree/leverOrder.js
 
 解法二 
 思路
@@ -617,11 +638,9 @@ tree/postorder.js 复杂
 时间复杂度：O(n)
 空间复杂度：线性增长的q O(n)
 
-8-8 二叉树中序遍历 94
-/tree/inorderTraversal.js
+### 8-8 二叉树中序遍历 94 /tree/inorderTraversal.js
 
-8-9 二叉树 路径总和 112
-/tree/hasPathSum.js
+### 8-9 二叉树 路径总和 112 /tree/hasPathSum.js
 
 深度优先遍历dfs：特点 访问当前节点，把所有的子节点都丢到深度优先遍历
 思路：
@@ -632,16 +651,15 @@ tree/postorder.js 复杂
 1. 深度优先遍历二叉树,在叶子节点处,判断当前路径的节点值的和是否等于目标值,是就返回true。
 1. 遍历结束,如果没有匹配,就返回 false。
 
-8-10 前端与树 遍历JSON 所有节点值
+### 8-10 前端与树 遍历JSON 所有节点值 /tree/json.js
 （深度优先遍历）
 1. 访问当前节点
 1. dfs当前节点的所有子节点
 
-8-11 前端与树 渲染 antd 的数组件
+### 8-11 前端与树 渲染 antd 的数组件 /tree/antd.js
 深度优先
-/tree/antd.js
 
-8-12 树章节总结
+### 8-12 树章节总结
 技术要点
 1. 树是一种分层数据的抽象模型,在前端广泛应用。
 1. 树的常用操作:深度/广度优先遍历、先中后序遍历
@@ -700,3 +718,88 @@ E 0 0 0 1 0
 /graph/bfs.js
  
 
+9-3 有效数字 65
+思路
+1. 这些节点分别代替字符串的8种状态
+1. 只有3、5、6 三种状态是合法的数字
+1. 状态直接是可以相互转变的
+1. 空字符串 状态：0
+
+步骤
+1. 构建一个表示状态的图
+1. 遍历字符串，沿着图走，如果到了某个节点无路可走，返回false
+1. 遍历结束，如果走到3、5、6 中的某一状态，返回true，否则返回false
+/graph/isNumber.js
+
+9-4 太平洋大西洋水流问题 难度中等， 比较难 417
+
+9-5 克隆图 133
+
+9-6 图 总结
+1. 图是 网络结构 的抽象模型，是一组由 边 连接的 节点
+1. 图可以表示任何二元关系,比如道路、航班。
+1. JS中没有图,但是可以用 Object和 Array构建图。
+1. 图的表示法:邻接矩阵、邻接表
+1. 图的常用操作:深度/广度优先遍历。
+
+### 10-1 堆
+1. 堆是一种特殊的完全二叉树。
+1. 所有的节点都大于等于(最大堆)或小于等于(最小堆)它的子节点。
+
+JS 中的堆
+1. JS中通常用数组表示堆。
+1. 任意节点的左侧子节点的位置是：2 * index + 1
+1. 任意节点的右侧子节点的位置是：2 * index + 2
+1. 父节点位置是（index-1）/ 2 的商 
+广度优先顺序遍历:[1,3,6,5,9,8]
+
+堆的应用
+1. 堆能高效、快速地找出最大值和最小值（堆顶）,时间复杂度:O(1)
+1. 找出第K个最大(小)元素。
+
+第 K 个最大元素
+1. 构建一个最小堆,并将元素依次插入堆中。
+1. 当堆的容量超过K,就删除堆顶。
+1. 插入结束后,堆顶就是第K个最大元素。
+
+### 10-2 js 实现最小 堆类
+1. 在类里，声明一个数组，用来装载元素
+1. 主要方法：插入、删除堆顶，获取堆顶、获取堆大小
+
+/heap/MinHeap.js
+
+插入
+1. 将值插入堆的底部,即数组的尾部。
+1. 然后上移:将这个值和它的父节点进行交換,直到父节点小于等于这个插入的值。
+1. 大小为k的堆中插入元素的时间复杂度为o(logk)。
+
+swap(i1, i2) {
+  const temp = this.heap[i1]
+  this.heap[i1] = this.heap[i2]
+  this.heap[i2] = temp
+}
+getParentIndex(i) {
+  return Math.floor((i-1)/2) // 或者
+  return (i - 1) >> 1 // 二进制操作， 把二进制数据往右移动一位，相当于除以2
+}
+shiftUp(index) {
+  if(index === 0) return
+  // 不停和父节点交换
+  // 获取父节点
+  const parentIndex = this.getParentIndex(index)
+  // 比较
+  if (this.heap[parentIndex] > this.heap[index]) {
+    this.swap(parentIndex, index)
+    this.shiftUp(parentIndex)
+  }
+}
+insert (value) {
+  this.heap.push(value)
+  // 上移
+  this.shiftUp(this.heap.length - 1)
+}
+
+ 删除堆顶
+ 1. 用数组尾部元素替换堆顶(直接删除堆页会破坏堆结构)。
+ 1. 然后下移:将新堆顶和它的子节点进行交換,直到子节点大于等于这个新堆顶。
+ 1. 大小为k的雄中删除堆页的时间复杂度为o(logk)。

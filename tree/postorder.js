@@ -14,20 +14,14 @@ const bt = require('./bt')
 // postorder(bt)
 
 /* 
-4
+         1            
+      /    \
+    2       3         
+  /  \    /  \
+ 4    5  6    7   
 
-5
-
-2
-
-6
-
-7
-
-3
-
-1
- */
+4、5、2、6、7、3、1
+*/
 
 function postorder (root) {
   const stack = [root]
