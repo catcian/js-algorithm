@@ -44,17 +44,13 @@ const bfs = (root) => {
 
 bfs(tree)
 /* 
-a
 
-b
+         a            
+      /    \
+    b       c         
+  /  \    /  \
+ d    e  f    g
 
-c
+a、b、c、d、e、f、g 
 
-d
-
-e
-
-f
-
-g 
 */
