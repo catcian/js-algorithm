@@ -826,3 +826,37 @@ insert (value) {
  1. 顺序搜索
  1. 二分搜索
 
+### 11-2 冒泡排序
+特点：简单、性能不好
+
+冒泡排序的思路：
+1. 比较所有相邻元素，如果第一个比第二个大，则交换他们
+1. 一轮下来，可以保证最后一个数是最大的
+1. 执行 n-1 轮，就可以完成排序
+
+冒泡排序动画
+https://visualgo.net/zh
+
+``` /sort/bubbleSort.js
+Array.prototype.bubbleSort = function() {
+  console.log(this)
+  3. for (let i=0; i<this.length-1; i++) {
+    1. for (let j=0; j<this.length-1 - i; j++) {
+      this[j] this[j+1]
+      2. 选择性交换
+      if (this[j] > this[j+1]){
+        temp = this[j]
+        this[j] = this[j+1]
+        this[j+1] = temp
+      }
+    }
+  }
+}
+
+const arr = [5,4,3,2,1]
+arr.bubbleSort()
+
+```
+冒泡排序的时间复杂度
+1. 两个嵌套循环
+1. 时间复杂度；O(n^2)
