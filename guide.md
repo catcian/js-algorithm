@@ -871,7 +871,22 @@ arr.bubbleSort()
 选择排序的动画 
 
 ```/sort/selectionSort.js
+Array.prototype.selectionSort = function () {
 
+  for (let i = 0; i < this.length; i++ ) {
+    let indexMin = i
+    for (let j = i + 1; j < this.length -1; j++) {
+      if (this[indexMin] > this[j+1]) {
+        indexMin = j+1
+      }
+    }
+
+    const temp = this[i]
+    this[i] = this[indexMin]
+    this[indexMin] = temp
+  }
+
+}
 ```
 
 选择排序的时间复杂度

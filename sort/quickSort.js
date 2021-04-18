@@ -1,6 +1,4 @@
 Array.prototype.quickSort = function () {
-  const startTime = Date.now()
-  console.log('startTime',startTime)
   const rec = (arr) => {
     if (arr.length === 1 || arr.length === 0 ) return arr
     const left = []
@@ -20,7 +18,6 @@ Array.prototype.quickSort = function () {
 
   const res = rec(this)
   res.forEach((n, i) => this[i] = n)
-  console.log('endTime', Date.now(), 'internal', Date.now() -startTime)
 }
 
 
