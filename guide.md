@@ -1007,7 +1007,7 @@ const res = [1,2,3,4,5].sequentialSeach(3)
 
 ```
 
-时间负载度
+时间复杂度
 1. 每次比较都使搜索范围缩小一半
 1. 时间复杂度 O(logN)
 
@@ -1026,3 +1026,57 @@ const res = [1,2,3,4,5].sequentialSeach(3)
 时间空间复杂度：
 1. 时间，循环体 O(n) l1+l2 长度之和
 1. 空间复杂度 O(n)
+
+### 11-10 猜数字大小 leet 374
+思路
+1. 这不就是二分搜索嘛！
+1. 调用 guess 函数，来判断中间元素是否是目标值
+
+步骤
+1. 从数组的中间元素开始，如果中间元素正好是目标值，则搜索过程结束
+1. 如果目标值大于或小于中间元素，则在数组大于或小于中间元素的那一半中查找
+地板除
+
+```
+var guessNumber = function(n) {
+    let low = 1
+    let height = n
+    while(low <= height) {
+        const mid = Math.floor((low + height) / 2)
+        const res = guess(mid)
+        if (res === 0) {
+            return mid
+        } else if (res === 1) {
+            low = mid + 1
+        } else {
+            height = mid - 1
+        }
+    }    
+};
+
+```
+
+时间复杂度
+时间 O(logN)
+空间 O(1)
+
+### 11-11 总结
+排序和搜索是什么？
+排序:把某个乱序的数组变成升序或者降序的数组。
+搜索:找出数组中某个元素的下标。
+
+js中的排序和搜索
+JS中的排序:数组的sort方法。
+JS中的搜索:数组的 indexof方法。
+
+排序算法
+冒泡
+选择
+插入
+O(n^2)、简单入门
+归并排序（实战）
+快速排序（实战）
+
+搜索
+1. 顺序搜索
+1. 二分搜索
