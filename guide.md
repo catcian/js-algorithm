@@ -900,3 +900,46 @@ Array.prototype.insertionSort = function() {
   // 1. this[p] = temp
 }
 ```
+
+### 11-5 归并排序 /sort/mergeSort.js
+firefox sort
+思路
+1. 分：把数组劈成两半，再递归对子数组进行“分”操作，直到分成一个个单独的数字
+5，4，3，2，1
+5，4
+  5，
+  4
+3，2，1
+  3，
+  2，1
+    2，
+    1
+
+1. 合；把两个数合并为有序数组，再对有序数组进行合并，直到全部子数组合并为一个完整数组
+
+合并两个有序数组
+1. 新建一个空数组res，用于存放最终排序后的数组
+1. 比较两个有序数组的头部，较小者出队并推入 res 中
+1. 如果两个数组还有值，就重复第二步
+
+```
+Array.prototype.mergeSort = function() {
+
+  const rec = (arr) => {
+
+    if(arr.length === 1) return arr
+    const mid = Math.floor(arr.length / 2)
+    const left = arr.slice(0, mid)
+    const right = arr.slice(mid, arr.length)
+    rec(left)
+    rec(rigth)
+  }
+
+}
+```
+
+归并排序的时间复杂度
+1. 分的时间复杂度O(logN)
+1. 合的时间复杂度；O(n)
+1. 时间复杂度 O(n * logN)
+
