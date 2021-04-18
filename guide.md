@@ -826,7 +826,7 @@ insert (value) {
  1. 顺序搜索
  1. 二分搜索
 
-### 11-2 冒泡排序
+### 11-2 冒泡排序 /sort/bubbleSort.js
 特点：简单、性能不好
 
 冒泡排序的思路：
@@ -857,11 +857,11 @@ const arr = [5,4,3,2,1]
 arr.bubbleSort()
 
 ```
-冒泡排序的时间复杂度
+冒泡排序的时间复杂度 /srot/selectionSort.js
 1. 两个嵌套循环
 1. 时间复杂度；O(n^2)
 
-11-3 选择排序
+### 11-3 选择排序 /sort/selectionSort.js
 特点；简单、性能不好
 思路
 1. 找到数组中的最小值，选中它并将其放置在第一位
@@ -870,10 +870,33 @@ arr.bubbleSort()
 
 选择排序的动画 
 
-```/srot/selectionSort.js
+```/sort/selectionSort.js
 
 ```
 
 选择排序的时间复杂度
 1. 两个嵌套循环
 1. 时间复杂度；O(n^2)
+
+### 11-4 插入排序 /sort/insertionSort.js
+时间复杂度 O(n^2) 小型数组时候，性能要比要好
+1. 从第二个数开始 往前比
+1. 在前面的数字里比它大的 就往后排
+1. 以此类推进行到最后一个数
+
+```
+Array.prototype.insertionSort = function() {
+
+  // 1. const temp = this[1]
+  // 1. let p = 1
+  // 1. while (p > 0) {
+  // 1.   if (this[p-1] > temp) {
+  // 1.     this[p] = this[p-1]
+  // 1.   } else {
+  // 1.     break;
+  // 1.   }
+  // 1.   p -= 1
+  // 1. }
+  // 1. this[p] = temp
+}
+```

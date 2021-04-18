@@ -48,3 +48,10 @@ const s = 'abcdchjklpo'
 const s2 = 'aabcderrgfff'
 const res = longestSubstring(s2) // abcder
 
+
+// let str = 'asdcsd'
+// for (let i=0; i<str.length; i++) {
+//   console.log('i: ', i, 'str[i]: ', str[i])
+// }
+
+// console.log('str.substring(1,3)', str.substring(1,3))
