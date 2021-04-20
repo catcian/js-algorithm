@@ -958,7 +958,7 @@ Array.prototype.mergeSort = function() {
 1. 合的时间复杂度；O(n)
 1. 时间复杂度 O(n * logN)
 
-### 11-6 快速排序
+### 11-6 快速排序 /sort/quickSort.js
 思路：
 1. 分区；从数组中任意选择一个‘基准’，所有比基准小的元素放在‘基准’前面，比‘基准’大的元素放在‘基准’的后面
 1. 递归；递归对‘基准’前后的子数组进行区分
@@ -967,6 +967,31 @@ Array.prototype.mergeSort = function() {
 1. 递归的时间复杂度 O(logN)
 1. 分区的复杂度是 O(n)
 1. 时间复杂度 O(nlogN)
+```
+
+Array.prototype.quickSort = function() {
+  const rec = (arr) => {
+    if (arr.length === 1 || arr.length ===0) return arr
+    const left = []
+    const right = []
+    const mid = arr[0]
+    for (let i=1; i<arr.length; i++) {
+      if (arr[i] < mid) {
+        left.push(arr[i])
+      } else {
+        right.push(arr[i])
+      }
+    }
+    return [...rec(left), mid, ...rec(right)]  
+  }
+  const res = rec(this)
+  res.forEach((n,i) => this[i] = n)
+}
+
+const arr = [5,2,3,4,1]
+arr.quickSort()
+console.log(arr)
+```
 
 ### 11-7 顺序搜索 /search/sequentialSearch.js
 1. 基本搜索、低效
@@ -993,7 +1018,7 @@ const res = [1,2,3,4,5].sequentialSeach(3)
 1. 遍历数组是一个循环操作
 1. 时间负载度 O(n)
 
-### 17-8 二分搜索
+### 11-8 二分搜索
 1. 有序数组 查找某个特定元素的算法
 1. 效率比顺序搜索效率高
 思路：
@@ -1001,9 +1026,23 @@ const res = [1,2,3,4,5].sequentialSeach(3)
 1. 如果目标值大于或者小于中间元素，则在大于或小于中间元素的那一半数组中搜索
 
 ``` /search/binarySearch.js
-// 最小下标
-
-// 最大下标
+Array.prototype.binarySearch = function(item) {
+  // 最小下标
+  let low = 0
+  // 最大下标
+  let height = this.length-1
+  while(low<=height) {
+    const mid = Math.floor((low+height) / 2)
+    if (this[mid] < item) {
+      low = mid + 1
+    } else if (this[mid] > item) {
+      height = mid - 1
+    } else {
+      return mid
+    }
+  }
+  return -1
+}
 
 ```
 
